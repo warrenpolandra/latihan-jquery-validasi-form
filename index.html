@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validasi form dengan JQuery</title>
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.validate.js"></script>
+    <style type="text/css">
+        .labelfrm {
+			display:block;
+			font-size:small;
+			margin-top:5px;
+		} .error { font-size:small; color:red; }
+    </style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#frm-mhs').validate({
+				rules: {
+					nim : {
+						required: true,
+						digits: true,
+						minlength: 10,
+						maxlength: 10
+					},
+					nama: {
+						required: true,
+						digits: false
+					},
+					alamat: {
+						required: true
+					},
+					tgl: {
+						required: true,
+						indonesianDate: true
+					},
+					umur: {
+						required: true,
+						digits: true,
+						range: [0, 100]
+					},
+					email: {
+						required: true,
+						email: true
+					},
+					situs: {
+						url: true
+					},
+					pass1: {
+						required: true,
+					},
+					pass2: {
+						required: true,
+						equalTo: "#pass1"
+					}
+				},
+				messages: {
+					nim: {
+						required: "NIM harus diisi",
+						minlength: "NIM harus terdiri dari 10 digit",
+						maxlength: "NIM harus terdiri dari 10 digit",
+						digits: "NIM harus hanya terdiri dari angka"
+					},
+					nama: {
+						required: "Nama harus diisi",
+						digits: "Nama harus hanya terdidi dari huruf"
+					},
+					alamat: {
+						required: "Alamat harus diisi"
+					},
+					tgl: {
+						required: "Tanggal harus diisi"
+					},
+					umur: {
+						required: "Umur harus diisi"
+					},
+					email: {
+						required: "Alamat email harus diisi",
+						email: "Format email tidak valid"
+					},
+					pass1: {
+						required: "Password harus diisi"
+					},
+					pass2: {
+						required: "Ulangi password di sini",
+						equalTo: "Password tidak sama"
+					}
+				}
+			});
+		});
+		$.validator.addMethod(
+			"indonesianDate",
+			function(value, element){
+				return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+			},
+			"Please enter a date in the format DD/MM/YYYY"
+		);
+	</script>
+</head>
+<body>
+    <h1>Input Data Mahasiswa</h1>
+		<form action="proses.php" method="post" id="frm-mhs">
+			<label for="nim" class="labelfrm">NIM: </label>
+			<input type="text" name="nim" id="nim" maxlength="10" size="15"/>
+			
+			<label for="nama" class="labelfrm">NAMA: </label>
+			<input type="text" name="nama" id="nama" size="30"/>
+ 
+			<label for="alamat" class="labelfrm">ALAMAT: </label>
+			<textarea name="alamat" id="alamat" cols="40" rows="4"></textarea>
+ 
+			<label for="tgl" class="labelfrm">TANGGAL LAHIR: </label>
+			<input type="text" name="tgl" id="tgl" maxlength="10" size="15"/>
+ 
+			<label for="umur" class="labelfrm">UMUR: </label>
+			<input type="text" name="umur" id="umur" maxlength="3" size="7"/>
+ 
+			<label for="email" class="labelfrm">ALAMAT EMAIL: </label>
+			<input type="text" name="email" id="email" size="50"/>
+ 
+			<label for="situs" class="labelfrm">ALAMAT SITUS: </label>
+			<input type="text" name="situs" id="situs" size="50"/>
+ 
+			<label for="pass1" class="labelfrm">PASSWORD: </label>
+			<input type="password" name="pass1" id="pass1" size="15"/>
+ 
+			<label for="pass2" class="labelfrm">ULANGI PASSWORD: </label>
+			<input type="password" name="pass2" id="pass2" size="15"/>
+ 
+			<label for="submit" class="labelfrm"></label>
+			<input type="submit" name="Submit" value="Submit"/>
+		</form>
+    
+</body>
+</html>
